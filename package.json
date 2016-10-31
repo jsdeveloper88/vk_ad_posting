@@ -1,0 +1,26 @@
+{
+  "name": "vk_ad_posting",
+  "version": "0.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "express": "latest",
+    "mysql": "latest",
+    "body-parser": "latest",
+    "ejs": "latest"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-simple-commonjs": "latest",
+    "grunt-contrib-htmlmin": "latest",
+    "grunt-contrib-copy": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "jsdeveloper88",
+  "license": "BSD-2-Clause"
+}

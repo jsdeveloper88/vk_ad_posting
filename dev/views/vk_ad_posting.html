@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> VK Ad Posting </title>
+	</head>
+
+	<script src="/js/libs/underscore.js"></script>
+	<script src="/js/libs/jquery.js"></script>
+	<script src="/js/libs/backbone.js"></script>
+
+	<link rel="stylesheet" href="/css/bootstrap-3.3.6/css/bootstrap.css">
+	<script src="/css/bootstrap-3.3.6/js/bootstrap.js"></script>
+
+	<script src="/js/app/app.js"></script>
+
+	<link rel="stylesheet" href="/css/autocomplete/autocomplete.css"/>
+	<script type="text/javascript" src="/js/plugins/autocomplete/jquery.autocomplete.js"></script>
+
+	<script src="//vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
+
+	<script>
+		$(function () {
+			$('#min_members_amt').val('10');
+			$('#max_members_amt').val('2000000000');
+			$('#city').val('НЕИЗВЕСТЕН');
+
+			//localStorage.rest_posts_amt = 0;
+			$('#rest_posts').val(localStorage.rest_posts_amt);
+
+			$('#total_posts').change(function(){
+				$(this).prop( "disabled", true );
+				$('#rest_posts').val($(this).val());
+				localStorage.rest_posts_amt = $(this).val();
+			});
+
+			$('#message_text').val(
+					 /*
+					 "kenege.ru - удобный сайт по продаже/покупке школьных б/у учебников в вашем городе.\n\n" +
+					 "Присоединяйтесь в его vk-сообщество, чтобы не забыть сайт ближе к школе: vk.com/kenege_ru\n\n" +
+					 "ГЛАВНАЯ ОСОБЕННОСТЬ ЭТОГО САЙТА: объявление составляется за считанные минуты благодаря наличию в нем почти всех известных школьных учебников. Также на нем можно отдельно продать учебники дополнительного образования по английскому языку."
+					 //*/
+
+					//*
+					"vk.com/s_b_p_e - сообщесто, которое помогает начать лучше воспринимать английский на слух при помощи грамотного подхода - подробности в описании.\n\n" +
+					"Start Better Perceiving English !!!\n\n" +
+					"Начни Лучше Воспринимать Английский !!!\n\n"
+					//*/
+			);
+			$('#message_attachments').val('photo-116556215_419880398');
+			//$('#message_attachments').val('photo334917471_426094868');
+			//$('#message_attachments').val('photo-116556215_407192202');
+
+			$('#city').autocomplete({
+				lookup: [
+					'НЕИЗВЕСТЕН',
+					//РОССИЯ
+					'Майкоп',
+					'Черкесск',
+					'Якутск',
+					'Петропавловск-Камчатский',
+					'Магадан',
+					'Великий Новгород',
+					'Орел',
+					'Агинское',
+					'Кудымкар',
+					'Палана',
+					'Дудинка',
+					'Усть-Ордынский',
+					'Анадырь',
+					'Тура',
+					'Салехард',
+
+					'Москва',
+					'Санкт-Петербург',
+					'Кемерово',
+					'Тюмень',
+					'Новосибирск',
+					'Саратов',
+					'Екатеринбург',
+					'Чебоксары',
+					'Новокузнецк',
+					'Челябинск',
+					'Магнитогорск',
+					'Воронеж',
+					'Самара',
+					'Ярославль',
+					'Улан-Удэ',
+					'Тольятти',
+					'Йошкар-Ола',
+					'Казань',
+					'Ижевск',
+					'Владивосток',
+					'Уфа',
+					'Иркутск',
+					'Нижний Новгород',
+					'Волгоград',
+					'Ростов-на-Дону',
+					'Киров',
+					'Барнаул',
+					'Брянск',
+					'Смоленск',
+					'Томск',
+					'Курск',
+					'Калининград',
+					'Пермь',
+					'Ульяновск',
+					'Омск',
+					'Липецк',
+					'Пенза',
+					'Иваново',
+					'Оренбург',
+					'Миасс',
+					'Ставрополь',
+					'Тамбов',
+					'Красноярск',
+					'Краснодар',
+					'Рязань',
+					'Одинцово',
+					'Люберцы',
+					'Кострома',
+					'Астрахань',
+					'Королёв',
+					'Сочи',
+					'Белгород',
+					'Прокопьевск',
+					'Калуга',
+					'Тверь',
+					'Клин',
+					'Махачкала',
+					'Химки',
+					'Тула',
+					'Владимир',
+					'Балашиха',
+					'Железногорск',
+					'Хабаровск',
+					'Набережные Челны',
+					'Петрозаводск',
+					'Чита',
+					'Мытищи',
+					'Нижний Тагил',
+					'Междуреченск',
+					'Вологда',
+					'Горно-Алтайск',
+					'Псков',
+					'Киселевск',
+					'Севастополь',
+					'Благовещенск',
+					'Ивантеевка',
+					'Подольск',
+					'Энгельс',
+					'Симферополь',
+					'Реутов',
+					'Сыктывкар',
+					'Жуковский',
+					'Сургут',
+					'Мурманск',
+					'Сатка',
+					'Находка',
+					'Нижневартовск',
+					'Волжский',
+					'Элиста',
+					'Великий Новгород',
+					'Златоуст',
+					'Новочебоксарск',
+					'Курган',
+					'Пушкино',
+					'Орел',
+					'Канаш',
+					'Гатчина',
+					'Электросталь',
+					'Владикавказ',
+					'Троицк',
+					'Реж',
+					'Озерск',
+					'Выборг',
+					'Архангельск',
+					'Грозный',
+					'Щелково',
+					'Ухта',
+					'Пятигорск',
+					'Ступино',
+					'Глазов',
+					'Белово',
+					'Полысаево',
+					'Ноябрьск',
+					'Абакан',
+					'Кызыл',
+					'Феодосия',
+					'Стерлитамак',
+					'Раменское',
+					'Северск',
+					'Орск',
+					'Александров',
+					'Бердск',
+					'Тобольск',
+					'Саранск',
+					'Череповец',
+					'Ленинск-Кузнецкий',
+					'Переславль-Залесский',
+					'Долгопрудный',
+					'Нальчик',
+					'Ханты-Мансийск',
+					'Нягань',
+					'Домодедово',
+					'Северодвинск',
+					'Южно-Сахалинск',
+					'Юрга',
+					'Всеволожск',
+					'Ахтубинск',
+					'Руза',
+					'Фрязино',
+					'Красногорск',
+					'Сергиев Посад',
+					'Алатырь',
+					'Солнечногорск',
+					'Новоуральск',
+					'Бахчисарай',
+					'Данков',
+					'Ангарск',
+					'Усинск',
+					'Муром',
+					'Большой Камень',
+					'Ковров',
+					'Сосновый Бор',
+					'Углич',
+					'Оленегорск',
+					'Катав-Ивановск',
+					'Муравленко',
+					'Ленск',
+					'Старый Оскол',
+					'Серпухов',
+					'Джанкой',
+					'Апрелевка',
+					'Комсомольск-на-Амуре',
+					'Нефтеюганск',
+					'Нарьян-Мар',
+					'Мончегорск',
+					'Луга',
+					'Азов',
+					'Верхняя Пышма',
+					'Покров',
+					'Новороссийск',
+					'Чебаркуль',
+					'Надым',
+					'Волжск',
+					'Копейск',
+					'Торжок',
+					'Балашов',
+					'Искитим',
+					'Сегежа',
+					'Сланцы',
+					'Ногинск',
+					'Воскресенск',
+					'Тында',
+					'Наро-Фоминск',
+					'Мелеуз',
+					'Учалы',
+					'Дмитров',
+					'Истра',
+					'Удомля',
+					'Мичуринск',
+					'Россошь',
+					'Алушта',
+					'Саров',
+					'Пущино',
+					'Волхов',
+					'Жигулёвск',
+					'Кубинка',
+					'Лыткарино',
+					'Новомосковск',
+					'Северобайкальск',
+					'Биробиджан',
+					'Луховицы',
+					'Новочеркасск',
+					'Каменск-Уральский',
+					'Асбест',
+					'Елец',
+					'Дзержинск',
+					'Берёзовский',
+					'Рыбинск',
+					'Воркута',
+					'Шумерля',
+					'Кыштым',
+					'Магас',
+					'Алупка',
+					'Уссурийск',
+					'Калтан',
+					'Камышин',
+					'Усолье-Сибирское',
+					'Кировск',
+					'Братск',
+					'Первоуральск',
+					'Вязьма',
+					'Лиски',
+					'Дзержинский',
+					'Ревда',
+					'Орехово-Зуево',
+					'Нефтекамск',
+					'Кириши',
+					'Туапсе',
+					'Туймазы',
+					'Крымск',
+					'Обнинск',
+					'Павловский Посад',
+
+					//УКРАИНА
+					'Киев',
+					'Харьков',
+					'Донецк',
+					'Херсон',
+					'Одесса',
+					'Днепропетровск',
+					'Запорожье',
+					'Николаев',
+					'Мариуполь',
+					'Винница',
+					'Луганск',
+					'Измаил',
+					'Чернигов',
+					'Макеевка',
+					'Кузнецовск',
+					'Кривой Рог',
+					'Львов',
+					'Волноваха',
+					'Сумы',
+					'Дружковка',
+					'Ивано-Франковск',
+					'Полтава',
+					'Черновцы',
+					'Стрый',
+					'Кировоград',
+
+					//БЕЛАРУСЬ
+					'Минск',
+					'Гомель',
+					'Витебск',
+					'Брест',
+
+					//КАЗАХСТАН
+					'Алма-Ата',
+					'Уральск',
+					'Усть-Каменогорск',
+					'Шымкент',
+					'Караганда',
+					'Жезказган',
+					'Байконур',
+					'Астана'
+				]
+			});
+		});
+	</script>
+
+	<style>
+		#send_messages_div {
+			width: 90%;
+			margin: 0 auto;
+		}
+
+		#params {
+			width: 97%;
+			margin: 0 auto;
+		}
+
+		#params tr > td {
+			border: 0;
+		}
+
+		#comm_table > tr > td {
+			border: 1;
+		}
+	</style>
+
+	<body>
+		<div id="send_messages_div" align="center">
+			<br>
+			<div class="panel panel-primary" align="center">
+			  	<div class="panel-heading">
+			  		Сообщение и параметры запроса к БД
+			  	</div>
+
+				<table class="table" id="params">
+					<tr>
+						<td colspan=4>
+							<label> Текст сообщения </label> 
+							<textarea id="message_text" class="form-control" rows="3" style="resize: vertical">
+							</textarea>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan=4>
+							<label> Дополнения к сообщению </label> 
+				  			<input id="message_attachments" class="form-control"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan=4>
+							<label> Города(через ",") </label>
+					  		<input id="city" class="form-control" placeholder="City"/>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label> Тип запроса </label> 
+							<select id="req_type" class="selectpicker show-tick form-control">
+								<option>english language</option>
+								<option>english club</option>
+								<option>english show</option>
+								<option>english lesson</option>
+								<option>english learn</option>
+								<option>english film</option>
+								<option>english movie</option>
+								<option>english tv</option>
+								<option>english begin</option>
+								<option>english subtitles</option>
+						    </select>
+						</td>
+
+						<td>
+							<label> Мин. кол-во уч-ков </label>
+					  		<select id="min_members_amt" class="selectpicker show-tick form-control">
+								<option>1000</option>
+								<option>900</option>
+						        <option>800</option>
+						        <option>700</option>
+								<option>600</option>
+						        <option>500</option>
+						        <option>400</option>
+								<option>300</option>
+						        <option>200</option>
+						        <option>100</option>	
+						        <option>50</option>
+								<option>30</option>	
+						        <option>10</option>
+								<option>1</option>
+						    </select>
+						</td>
+
+						<td>
+							<label> Макс. кол-во уч-ков </label>
+					  		<select id="max_members_amt" class="selectpicker show-tick form-control">
+					  			<option>2000000000</option>
+								<option>1000</option>
+								<option>900</option>
+						        <option>800</option>
+						        <option>700</option>
+								<option>600</option>
+						        <option>500</option>
+						        <option>400</option>
+								<option>300</option>
+						        <option>200</option>
+						        <option>100</option>	
+						        <option>50</option>
+								<option>30</option>	
+						        <option>10</option>
+						    </select>
+						</td>
+
+						<td style="vertical-align: bottom">
+							<label> Страна </label>
+							<select id="country_id" class="selectpicker show-tick form-control">
+								<option value = 1>Россия</option>
+								<option value = 2>Украина</option>
+								<option value = 3>Беларусь</option>
+								<option value = 4>Казахстан</option>
+							</select>
+						</td>
+					</tr>
+						
+					<!--<tr>
+						<td colspan=4 style="border: 0">
+							<label> Лог </label> 
+							<textarea id="send_message_log" class="form-control" rows="10" style="resize: vertical"></textarea>
+						</td>
+					</tr>-->
+
+					<tr>
+						<td width="25%">
+							<label> Кол-во сообщ./стр. </label> 
+							<select id="strs_per_pg" class="selectpicker show-tick form-control">
+					        	<option>30</option>
+					          	<option>60</option>
+					          	<option>90</option>
+					        </select>
+						</td>
+
+						<td width="25%">
+							<label> Всего отправок </label>
+							<select id="total_posts" class="selectpicker show-tick form-control">
+								<option>0</option>
+								<option>50</option>
+								<option>60</option>
+								<option>70</option>
+							</select>
+						</td>
+						
+						<td width="25%">
+							<label> Осталось отправок </label>
+							<input id="rest_posts" class="form-control" disabled="true"/>
+						</td>
+
+						<td width="25%" style="vertical-align: bottom">
+							<button id="get_communities" type="button" class="btn btn-primary" style="width: 100%">
+								Получить сообщества
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br>
+			<ul class="pagination"></ul>
+			<div class="panel panel-primary" align="center">
+			  	<div class="panel-heading">
+			  		<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+			  		Сообщества
+			  	</div>
+			  		
+			  	<table class="table table-bordered table-striped" id="comm_table">
+					<th width="5%">#</th>
+				  	<th width="15%">Сообщество</th>
+				  	<th width="10%">Последний пост</th>
+				  	<th width="5%">Кол-во уч-ков</th>			  		
+				  	<th width="20%">Название сообщества</th>
+				  	<th width="5%">Город/ID поста</th>
+				  	<th width="20%">Удалить</th>
+				  	<th width="20%">Отправить</th>
+			  	</table>
+			</div>
+			<ul class="pagination"></ul>
+		</div>
+	</body>
+</html>
